@@ -5,5 +5,8 @@
   "main": "app.js",
   "author": {
     "name": "Duste"
+  },
+  "dependencies": {
+    "discord.js": "^11.1.0"
   }
 }
