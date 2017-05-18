@@ -18,6 +18,7 @@
     }
 }
 
+
 var Command = {
     name: "",
     aliases: [],

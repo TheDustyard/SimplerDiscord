@@ -1,10 +1,10 @@
 const Discord = require("discord.js");
 const settings = require('./setting.json');
-const Commands = require("./CommandHandler/CommandHandler.js");
+const BetterCommands = require("./BetterCommands");
 
 const client = new Discord.Client();
 
-var CommandHandler = new Commands.CommandHandler();
+var CommandHandler = BetterCommands.Handler.CommandHandler;
 
 CommandHandler.prefix = "!";
 
