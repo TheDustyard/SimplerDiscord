@@ -1,0 +1,9 @@
+{
+  "name": "command-handler",
+  "version": "0.0.0",
+  "description": "CommandHandler",
+  "main": "app.js",
+  "author": {
+    "name": "Duste"
+  }
+}
