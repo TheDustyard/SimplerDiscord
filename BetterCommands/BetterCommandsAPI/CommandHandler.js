@@ -18,22 +18,85 @@ class CommandHandler {
 
         this.commands[group].push(command);
 
-        console.log(this.commands);
+        console.log(command);
     }
 
     Handle(message) {
         if (message.content[0] !== this.prefix)
             return;
 
-        console.log(`${message.author.username} Executed ${message.content}`);
+        console.warn(`${message.author.username} Called ${message.content}`);
+
+        var args = message.content.toLowerCase().trim().split(" ");
+        var commandname = args[0].substring(1);
+        args.shift();
+
+        var results = this.FindCommand(commandname);
+
+        console.log(results);
+
+        var filtered = results.filter(function (item) {
+            if (item.args === null) {
+                return args.length === 0;
+            } else {
+                return item.args.length === args.length;
+            }
+        });
+
+        console.log(filtered);
+
+        if (filtered.length === 0 && results.length > 0) {
+            var argumentz = results.map(function (item) {
+                if (item.args === null)
+                    return 0;
+                return item.args.length;
+            });
+            var argz = "";
+            if (argumentz !== null) {
+                argz += argumentz.join(', or ');
+            }
+            message.channel.send(`Command ***${commandname}*** requires ${argz} argument(s), you gave ${args.length} argument(s).`);
+            return;
+        }
+
+        if (filtered.length > 0) {
+            if (filtered.length > 1) {
+                console.log(`!!TWO COMMANDS ARE INTERFIERING WITH EACHOTHER!!\n${filtered}`);
+                message.channel.send(`Internal Error`);
+                return;
+            }
+
+            if (filtered.length === 1) {
+                filtered[0].method(message, args, this);
+                return;
+            }
+        }
+
+        message.channel.send(`Command ***${commandname}*** not found. Type ***${this.prefix}help*** for all commands`);
+
     }
 
-    HelpCommand(message, args) {
+    FindCommand(name) {
+        var out = [];
 
+        for (var index in this.commands) {
+            for (var index1 in this.commands[index]) {
+                var command = this.commands[index][index1];
+                if (command.name === name) {
+                    out.push(command);
+                }
+            }
+        }
+
+        return out;
     }
 
-    HelpSearchCommand(message, args) {
+    HelpCommand(message, args, handler) {
+        message.channel.send("no");
+    }
 
+    HelpSearchCommand(message, args, handler) {
+        message.channel.send(handler.FindCommand(args[0]));
     }
 }
 
