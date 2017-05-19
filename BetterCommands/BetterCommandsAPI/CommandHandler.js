@@ -61,7 +61,7 @@ class CommandHandler {
 
         if (filtered.length > 0) {
             if (filtered.length > 1) {
-                console.log(`!!TWO COMMANDS ARE INTERFIERING WITH EACHOTHER!!\n${filtered}`);
+                console.log(`!!TWO COMMANDS ARE INTERFERING WITH EACHOTHER!!\n${filtered.map((item) => item.name}`);
                 message.channel.send(`Internal Error`);
                 return;
             }
