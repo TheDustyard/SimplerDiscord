@@ -1,2 +1,2 @@
 # Discord.js-Commands
-A batter(unofficial) command handler for Discord.js
+A better(unofficial) command handler for Discord.js
