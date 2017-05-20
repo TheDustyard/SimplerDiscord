@@ -36,7 +36,13 @@
     <Compile Include="SimplerDiscord\CommandHandler.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="SimplerDiscord\Emoji.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="SimplerDiscord\index.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SimplerDiscord\Mention.js">
       <SubType>Code</SubType>
     </Compile>
     <Content Include="package.json" />

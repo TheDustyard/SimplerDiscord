@@ -1,12 +1,13 @@
 ﻿const Command = require("./Command");
+const Discord = require("discord.js");
 
 class CommandHandler {
     constructor(prefix) {
         this.prefix = prefix;
         this.commands = [];
         
-        this.AddCommand(new Command("help", null, "Get All Commands", this.HelpCommand), "Help Commands");
-        this.AddCommand(new Command("help", ["command"], "Get Command Info", this.HelpSearchCommand), "Help Commands");
+        this.AddCommand(new Command("help", null, "Get All Commands", HelpCommand), "Help Commands");
+        this.AddCommand(new Command("help", ["command"], "Get Command Info", HelpSearchCommand), "Help Commands");
     }
 
     AddCommand(command, group) {
@@ -18,14 +19,15 @@ class CommandHandler {
 
         this.commands[group].push(command);
 
-        console.log(command);
+        //console.log(command);
     }
 
     Handle(message) {
         if (message.content[0] !== this.prefix)
             return;
 
-        console.warn(`${message.author.username} Called ${message.content}`);
+        //console.warn(`${message.author.username} Called ${message.content}`);
+        //console.log(this.commands);
 
         var args = message.content.toLowerCase().trim().split(" ");
         var commandname = args[0].substring(1);
@@ -33,7 +35,7 @@ class CommandHandler {
 
         var results = this.FindCommand(commandname);
 
-        console.log(results);
+        //console.log(results);
 
         var filtered = results.filter(function (item) {
             if (item.args === null) {
@@ -43,7 +45,7 @@ class CommandHandler {
             }
         });
 
-        console.log(filtered);
+        //console.log(filtered);
 
         if (filtered.length === 0 && results.length > 0) {
             var argumentz = results.map(function (item) {
@@ -53,7 +55,7 @@ class CommandHandler {
             });
             var argz = "";
             if (argumentz !== null) {
-                argz += argumentz.join(', or ');
+                argz = argumentz.join(', or ');
             }
             message.channel.send(`Command ***${commandname}*** requires ${argz} argument(s), you gave ${args.length} argument(s).`);
             return;
@@ -68,6 +70,7 @@ class CommandHandler {
 
             if (filtered.length === 1) {
                 filtered[0].method(message, args, this);
+                console.warn(`${message.author.username} Called ${message.content}`);
                 return;
             }
         }
@@ -90,14 +93,33 @@ class CommandHandler {
 
         return out;
     }
+}
 
-    HelpCommand(message, args, handler) {
-        message.channel.send("no");
+function HelpCommand(message, args, handler) {
+    var helpembed = new Discord.RichEmbed();
+    helpembed.color = 5446319;
+
+    for (var group in handler.commands) {
+        var outp = "";
+        var commands = handler.commands[group];
+        for (var command in commands) {
+            command = commands[command];
+            if (command.args === null) command.args = [];
+
+            command.args = command.args.map((item) => `[${item}] `);
+
+            outp += `${handler.prefix}${command.name} ${command.args.join("")}- *${command.description}*\n`;
+        }
+        helpembed.addField(group, outp, false);
     }
 
-    HelpSearchCommand(message, args, handler) {
-        message.channel.send(handler.FindCommand(args[0]));
-    }
+    message.channel.send("", {
+        embed: helpembed
+    });
+}
+
+function HelpSearchCommand(message, args, handler) {
+    message.channel.send(handler.FindCommand(args[0]));
 }
 
 module.exports = CommandHandler;
