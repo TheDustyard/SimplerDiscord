@@ -31,7 +31,6 @@
   <ItemGroup>
     <Compile Include="app.js" />
     <Content Include="package.json" />
-    <Content Include="README.md" />
     <Content Include="setting.json">
       <SubType>Code</SubType>
     </Content>
