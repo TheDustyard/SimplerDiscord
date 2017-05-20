@@ -3,7 +3,21 @@
 ## Use NPM
 ```npm install simpler-discord```
 
-# Usage
+# Emoji
+
+```js
+var emoji = new SimplerDiscord.Emoji("god").toString();
+```
+
+# Mentions
+
+```js
+var mention = new SimplerDiscord.Mention(guild, "DusterTheFirst", "user").toString();
+var mention = new SimplerDiscord.Mention(guild, "general", "channel").toString();
+```
+Where guild is the guild to get the mention in
+
+# Commands
 
 #### Create a command handler
 ```javascript
