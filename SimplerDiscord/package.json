@@ -5,5 +5,7 @@
   "main": "index.js",
   "author": {
     "name": "DusterTheFirst"
-  }
+  },
+  "homepage": "https://github.com/DusterTheFirst/SimplerDiscord",
+  "license": "http://www.apache.org/licenses/LICENSE-2.0"
 }

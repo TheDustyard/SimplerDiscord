@@ -7,6 +7,7 @@ Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "SimplerDiscordExample", "Si
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{83221B8E-633F-4A3E-8E93-1D3CB81F4E2D}"
 	ProjectSection(SolutionItems) = preProject
+		Licence = Licence
 		README.md = README.md
 	EndProjectSection
 EndProject
