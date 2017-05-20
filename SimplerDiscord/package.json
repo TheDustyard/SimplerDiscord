@@ -1,0 +1,9 @@
+{
+  "name": "simpler-discord",
+  "version": "1.0.0",
+  "description": "SimplerDiscord",
+  "main": "index.js",
+  "author": {
+    "name": "DusterTheFirst"
+  }
+}
