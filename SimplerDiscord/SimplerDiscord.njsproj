@@ -34,6 +34,12 @@
     <Compile Include="Emoji.js" />
     <Compile Include="index.js" />
     <Compile Include="Mention.js" />
+    <Compile Include="MessageHandler.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MultiMessage.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Content Include="package.json" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->

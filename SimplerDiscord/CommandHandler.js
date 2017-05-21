@@ -18,24 +18,20 @@ class CommandHandler {
             this.commands[group] = [];
 
         this.commands[group].push(command);
-
-        //console.log(command);
     }
 
     Handle(message) {
         if (message.content[0] !== this.prefix)
             return;
 
-        //console.warn(`${message.author.username} Called ${message.content}`);
-        //console.log(this.commands);
+        if (message.author.bot)
+            return;
 
         var args = message.content.toLowerCase().trim().split(" ");
-        var commandname = args[0].substring(1);
+        var commandname = args[0].substring(this.prefix.length);
         args.shift();
 
         var results = this.FindCommand(commandname);
-
-        //console.log(results);
 
         var filtered = results.filter(function (item) {
             if (item.args === null) {
@@ -44,8 +40,6 @@ class CommandHandler {
                 return item.args.length === args.length;
             }
         });
-
-        //console.log(filtered);
 
         if (filtered.length === 0 && results.length > 0) {
             var argumentz = results.map(function (item) {
@@ -106,9 +100,9 @@ function HelpCommand(message, args, handler) {
             command = commands[command];
             if (command.args === null) command.args = [];
 
-            command.args = command.args.map((item) => `[${item}] `);
+            var arguments = command.args.map((item) => `[${item}] `);
 
-            outp += `${handler.prefix}${command.name} ${command.args.join("")}- *${command.description}*\n`;
+            outp += `${handler.prefix}${command.name} ${arguments.join("")}- *${command.description}*\n`;
         }
         helpembed.addField(group, outp, false);
     }
@@ -119,7 +113,25 @@ function HelpCommand(message, args, handler) {
 }
 
 function HelpSearchCommand(message, args, handler) {
-    message.channel.send(handler.FindCommand(args[0]));
+    var commands = handler.FindCommand(args[0]);
+
+    var helpembed = new Discord.RichEmbed();
+    helpembed.setColor(5446319);
+    helpembed.setTitle(`Results for ${args}`);
+
+    for (var command in commands) {
+        command = commands[command];
+        if (command.args === null) command.args = [];
+
+        var outp = `*Arguments*: ${command.args.join(", ")}` +
+                   `\n*Description*: ${command.description}`;
+
+        helpembed.addField(handler.prefix + command.name, outp, false);
+    }
+
+    message.channel.send("", {
+        embed: helpembed
+    });
 }
 
 module.exports = CommandHandler;
