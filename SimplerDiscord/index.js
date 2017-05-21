@@ -1,9 +1,16 @@
 ﻿module.exports = {
-    Command: require("./Command"),
-    CommandHandler: require("./CommandHandler"),
-    Mention: require("./Mention"),
-    Emoji: require("./Emoji"),
-    MessageHandler: require("./MessageHandler"),
-    MultiMessage: require("./MultiMessage"),
-    PremadeCommand: require("./PremadeCommands")
+    //TYPES
+    Command: require("./Types/Command"),
+    Mention: require("./Types/Mention"),
+    Emoji: require("./Types/Emoji"),
+
+    //HANDLERS
+    CommandHandler: require("./Handlers/CommandHandler"),
+    MessageHandler: require("./Handlers/MessageHandler"),
+
+    //UTIL
+    RandomMessage: require("./Util/RandomMessage"),
+
+    //ADDONS
+    Addons: require("./Addons")
 };

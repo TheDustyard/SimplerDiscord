@@ -13,7 +13,7 @@ var CombineCommand = new SimplerDiscord.Command("combine", ["first", "second"], 
 
 Commands.AddCommand(PingCommand, "Utility Commands");
 Commands.AddCommand(CombineCommand, "Utility Commands");
-Commands.AddCommand(Messages.listCommand, "Help Commands");
+Commands.AddCommand(Messages.Command, "Help Commands");
 
 Messages.AddMessage("poop", (msg) => msg.channel.send("POOP!"));
 

@@ -29,27 +29,22 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="PremadeCommands\AFK.js">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="PremadeCommands\index.js">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Command.js" />
-    <Compile Include="CommandHandler.js" />
-    <Compile Include="Emoji.js" />
+    <Compile Include="Addons\Commands.js" />
+    <Compile Include="Addons\index.js" />
+    <Compile Include="Types\Command.js" />
+    <Compile Include="Handlers\CommandHandler.js" />
+    <Compile Include="Types\Emoji.js" />
     <Compile Include="index.js" />
-    <Compile Include="Mention.js" />
-    <Compile Include="MessageHandler.js">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MultiMessage.js">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Types\Mention.js" />
+    <Compile Include="Handlers\MessageHandler.js" />
+    <Compile Include="Util\RandomMessage.js" />
     <Content Include="package.json" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="PremadeCommands\" />
+    <Folder Include="Addons\" />
+    <Folder Include="Handlers\" />
+    <Folder Include="Types\" />
+    <Folder Include="Util\" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />

@@ -4,7 +4,7 @@ const Command = require("./Command");
 class MessageHandler {
     constructor() {
         this.commands = [];
-        this.listCommand = new Command("replies", null, "Get all the messages the bot will reply to", (message, args, handler) => {
+        this.Command = new Command("replies", null, "Get all the messages the bot will reply to", (message, args, handler) => {
             message.channel.send("Messages that the bot will reply to:");
             message.channel.send(Object.keys(this.commands).join("\n"), {code: true});
         });

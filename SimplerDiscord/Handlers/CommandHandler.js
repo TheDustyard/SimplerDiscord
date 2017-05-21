@@ -36,6 +36,8 @@ class CommandHandler {
         var filtered = results.filter(function (item) {
             if (item.args === null) {
                 return args.length === 0;
+            } else if (item.args.length === 0){
+                return true;
             } else {
                 return item.args.length === args.length;
             }
@@ -53,6 +55,8 @@ class CommandHandler {
             }
             message.channel.send(`Command ***${commandname}*** requires ${argz} argument(s), you gave ${args.length} argument(s).`);
             return;
+        } else {
+            //DO SOMETHING FOR REMAINDER COMMANDS
         }
 
         if (filtered.length > 0) {
