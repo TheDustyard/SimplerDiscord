@@ -5,10 +5,8 @@ class MessageHandler {
     constructor() {
         this.commands = [];
         this.listCommand = new Command("replies", null, "Get all the messages the bot will reply to", (message, args, handler) => {
-            var embed = new Discord.RichEmbed();
-            embed.setTitle("Messages that the bot will reply to");
-            embed.setDescription(Object.keys(this.commands).join("\n"));
-            message.channel.send("", { embed: embed });
+            message.channel.send("Messages that the bot will reply to:");
+            message.channel.send(Object.keys(this.commands).join("\n"), {code: true});
         });
     }
 
@@ -22,6 +20,7 @@ class MessageHandler {
             return;
 
         method(msg);
+        console.log(`[SimpleDiscord] ${msg.author.username} sent ${msg.content}, which was replied to by the bot`);
     }
 
     AddMessage(message, method) {

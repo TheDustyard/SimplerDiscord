@@ -57,14 +57,14 @@ class CommandHandler {
 
         if (filtered.length > 0) {
             if (filtered.length > 1) {
-                console.log(`!!TWO COMMANDS ARE INTERFERING WITH EACHOTHER!!\n${filtered.map((item) => item.name)}`);
+                console.log(`[SimpleDiscord] !!TWO COMMANDS ARE INTERFERING WITH EACHOTHER!!\n${filtered.map((item) => item.name)}`);
                 message.channel.send(`Internal Error`);
                 return;
             }
 
             if (filtered.length === 1) {
                 filtered[0].method(message, args, this);
-                console.warn(`${message.author.username} Called ${message.content}`);
+                console.warn(`[SimpleDiscord] ${message.author.username} Called ${message.content}`);
                 return;
             }
         }
