@@ -1,6 +1,6 @@
 # Installation
 
-###DOCS ARE OUT OF DATE, PLEASE MESSAGE DusterTheFirst#4191 ON DISCORD FOR HELP
+### DOCS ARE OUT OF DATE, PLEASE MESSAGE DusterTheFirst#4191 ON DISCORD FOR HELP
 
 ## Use NPM
 ```npm install simpler-discord```
