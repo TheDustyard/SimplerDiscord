@@ -104,9 +104,9 @@ function HelpCommand(message, args, handler) {
             command = commands[command];
             if (command.args === null) command.args = [];
 
-            var arguments = command.args.map((item) => `[${item}] `);
+            var cmdargs = command.args.map((item) => `[${item}] `);
 
-            outp += `${handler.prefix}${command.name} ${arguments.join("")}- *${command.description}*\n`;
+            outp += `${handler.prefix}${command.name} ${cmdargs.join("")}- *${command.description}*\n`;
         }
         helpembed.addField(group, outp, false);
     }
