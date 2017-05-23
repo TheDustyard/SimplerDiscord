@@ -1,3 +1,6 @@
+<a href="https://www.npmjs.com/package/simpler-discord"><img src="https://img.shields.io/npm/v/simpler-discord.svg?maxAge=3600" alt="NPM version" /></a>
+<a href="https://www.npmjs.com/package/simpler-discord"><img src="https://img.shields.io/npm/dt/simpler-discord.svg?maxAge=3600" alt="NPM downloads" /></a>
+
 # Installation
 
 ### DOCS ARE OUT OF DATE, PLEASE MESSAGE DusterTheFirst#4191 ON DISCORD FOR HELP
