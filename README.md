@@ -10,7 +10,6 @@
       <img src="https://img.shields.io/npm/dt/simpler-discord.svg?maxAge=3600" alt="NPM downloads" />
     </a>
     <a href="https://codeclimate.com/github/DusterTheFirst/SimplerDiscord"><img src="https://codeclimate.com/github/DusterTheFirst/SimplerDiscord/badges/gpa.svg"/></a>
-    <a href="https://codeclimate.com/github/DusterTheFirst/SimplerDiscord/coverage"><img src="https://codeclimate.com/github/DusterTheFirst/SimplerDiscord/badges/coverage.svg" /></a>
     <a href="https://codeclimate.com/github/DusterTheFirst/SimplerDiscord"><img src="https://codeclimate.com/github/DusterTheFirst/SimplerDiscord/badges/issue_count.svg" /></a>
   </p>
   <p>
