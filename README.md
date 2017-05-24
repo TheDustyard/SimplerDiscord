@@ -17,6 +17,7 @@
   </p>
 </div>
 
+![gif](https://cdn.discordapp.com/attachments/313657969994891264/316976357517033472/not_from_a_net.gif)
 
 # Installation
 
