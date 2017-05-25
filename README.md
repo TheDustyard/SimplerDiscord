@@ -5,7 +5,7 @@
   </p>
   <br />
   <p>
-    <a href="https://www.npmjs.com/package/simpler-discord" align="center" style="width:100%">
+    <a href="https://www.npmjs.com/package/simpler-discord" align="center" style="width:100%; text-decoration:none;">
       <img src="https://img.shields.io/npm/v/simpler-discord.svg?maxAge=3600" alt="NPM version" />
       <img src="https://img.shields.io/npm/dt/simpler-discord.svg?maxAge=3600" alt="NPM downloads" />
     </a>
