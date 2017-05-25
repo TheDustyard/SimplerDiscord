@@ -6,4 +6,4 @@
 
 [TUTORIAL](https://github.com/DusterTheFirst/SimplerDiscord/blob/master/SimplerDiscord/README.md)
 
-[DOCS]()
+[DOCS](https://github.com/DusterTheFirst/SimplerDiscord/wiki)
