@@ -1,16 +1,19 @@
-﻿const Command = require("./Command");
+﻿const Command = require("../Types/Command");
 const Discord = require("discord.js");
 
 class CommandHandler {
-    constructor(prefix) {
+    constructor(prefix, options) {
         this.prefix = prefix;
         this.commands = [];
+        if (options === undefined)
+            options = {};
+        this.options = options;
         
-        this.AddCommand(new Command("help", null, "Get All Commands", HelpCommand), "Help Commands");
-        this.AddCommand(new Command("help", ["command"], "Get Command Info", HelpSearchCommand), "Help Commands");
+        this.Regester(new Command("help", null, "Get All Commands", HelpCommand), "Help Commands");
+        this.Regester(new Command("help", ["command"], "Get Command Info", HelpSearchCommand), "Help Commands");
     }
 
-    AddCommand(command, group) {
+    Regester(command, group) {
         if (group === undefined)
             group = "Other Commands";
 
@@ -20,7 +23,7 @@ class CommandHandler {
         this.commands[group].push(command);
     }
 
-    Handle(message) {
+    hande(message) {
         if (message.content[0] !== this.prefix)
             return;
 
@@ -28,7 +31,7 @@ class CommandHandler {
             return;
 
         var args = message.content.toLowerCase().trim().split(" ");
-        var commandname = args[0].substring(this.prefix.length);
+        var commandname = args[0].substring(this.prefix.length).toLowerCase();
         args.shift();
 
         var results = this.FindCommand(commandname);
@@ -36,8 +39,8 @@ class CommandHandler {
         var filtered = results.filter(function (item) {
             if (item.args === null) {
                 return args.length === 0;
-            } else if (item.args.length === 0){
-                return true;
+            //} else if (typeof item.args === "boolean"){
+            //    return true;
             } else {
                 return item.args.length === args.length;
             }
@@ -55,11 +58,24 @@ class CommandHandler {
             }
             message.channel.send(`Command ***${commandname}*** requires ${argz} argument(s), you gave ${args.length} argument(s).`);
             return;
-        } else {
-            //DO SOMETHING FOR REMAINDER COMMANDS
         }
 
         if (filtered.length > 0) {
+            //if (filtered.some(x => typeof x.args !== "boolean")) {
+            //    var morefiltered = filtered.filter(x => typeof x.args === "boolean");
+            //    console.log(morefiltered);
+            //    if (morefiltered.length === 1) {
+            //        let deleteit = morefiltered[0].method(message, args.join(" "), this);
+            //        if (deleteit) message.delete();
+            //        console.warn(`[SimpleDiscord] ${message.author.username} Called ${message.content}`);
+            //        return;
+            //    } else if (morefiltered.length > 1) {
+            //        console.log(`[SimpleDiscord] !!TWO COMMANDS ARE INTERFERING WITH EACHOTHER!!\n${filtered.map((item) => item.name)}`);
+            //        message.channel.send(`Internal Error`);
+            //        return;
+            //    }
+            //}
+
             if (filtered.length > 1) {
                 console.log(`[SimpleDiscord] !!TWO COMMANDS ARE INTERFERING WITH EACHOTHER!!\n${filtered.map((item) => item.name)}`);
                 message.channel.send(`Internal Error`);
@@ -67,13 +83,15 @@ class CommandHandler {
             }
 
             if (filtered.length === 1) {
-                filtered[0].method(message, args, this);
+                let deleteit = filtered[0].method(message, args, this);
+                if (deleteit) message.delete();
                 console.warn(`[SimpleDiscord] ${message.author.username} Called ${message.content}`);
                 return;
             }
         }
 
-        message.channel.send(`Command ***${commandname}*** not found. Type ***${this.prefix}help*** for all commands`);
+        if (this.options.notfound)
+            message.channel.send(`Command ***${commandname}*** not found. Type ***${this.prefix}help*** for all commands`);
 
     }
 
@@ -95,7 +113,10 @@ class CommandHandler {
 
 function HelpCommand(message, args, handler) {
     var helpembed = new Discord.RichEmbed();
-    helpembed.color = 5446319;
+    if (handler.options.color === undefined)
+        helpembed.color = 5446319;
+    else
+        helpembed.color = handler.options.color;
 
     for (var group in handler.commands) {
         var outp = "";
@@ -104,7 +125,13 @@ function HelpCommand(message, args, handler) {
             command = commands[command];
             if (command.args === null) command.args = [];
 
-            var cmdargs = command.args.map((item) => `[${item}] `);
+            var cmdargs;
+
+            //if (typeof command.args === "boolean") {
+            //    cmdargs = ["[text]"];
+            //} else {
+                cmdargs = command.args.map((item) => `[${item}] `);
+            //}
 
             outp += `${handler.prefix}${command.name} ${cmdargs.join("")}- *${command.description}*\n`;
         }

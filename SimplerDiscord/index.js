@@ -2,7 +2,6 @@
     //TYPES
     Command: require("./Types/Command"),
     Mention: require("./Types/Mention"),
-    Emoji: require("./Types/Emoji"),
 
     //HANDLERS
     CommandHandler: require("./Handlers/CommandHandler"),
@@ -10,6 +9,9 @@
 
     //UTIL
     RandomMessage: require("./Util/RandomMessage"),
+
+    //METHODS
+    getEmoji: (name, guild) => `<:${name}:${guild.emojis.find('name', name).id}>`,
 
     //ADDONS
     Addons: require("./Addons")

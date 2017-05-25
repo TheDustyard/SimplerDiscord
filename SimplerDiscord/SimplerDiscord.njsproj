@@ -31,9 +31,11 @@
   <ItemGroup>
     <Compile Include="Addons\Commands.js" />
     <Compile Include="Addons\index.js" />
+    <Compile Include="Addons\StringUtils.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Types\Command.js" />
     <Compile Include="Handlers\CommandHandler.js" />
-    <Compile Include="Types\Emoji.js" />
     <Compile Include="index.js" />
     <Compile Include="Types\Mention.js" />
     <Compile Include="Handlers\MessageHandler.js" />

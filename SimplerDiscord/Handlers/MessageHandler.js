@@ -1,20 +1,20 @@
 ﻿const Discord = require("discord.js");
-const Command = require("./Command");
+const Command = require("../Types/Command");
 
 class MessageHandler {
     constructor() {
         this.commands = [];
-        this.Command = new Command("replies", null, "Get all the messages the bot will reply to", (message, args, handler) => {
-            message.channel.send("Messages that the bot will reply to:");
-            message.channel.send(Object.keys(this.commands).join("\n"), {code: true});
-        });
+        //this.commandsAsList = new Command("replies", null, "Get all the messages the bot will reply to", (message, args, handler) => {
+        //    message.channel.send("Messages that the bot will reply to:");
+        //    message.channel.send(Object.keys(this.commands).join("\n"), {code: true});
+        //});
     }
 
-    Handle(msg) {
+    handle(msg) {
         if (msg.author.bot)
             return;
 
-        var method = this.commands[msg.content];
+        var method = this.commands[msg.content.toLowerCase()];
 
         if (!method)
             return;

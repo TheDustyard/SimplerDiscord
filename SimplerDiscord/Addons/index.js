@@ -1,3 +1,4 @@
 ﻿module.exports = {
-    Commands: require("./Commands")
+    Commands: require("./Commands"),
+    StringUtils: require("./StringUtils")
 };
