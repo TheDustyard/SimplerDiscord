@@ -41,6 +41,7 @@
     <Compile Include="Handlers\MessageHandler.js" />
     <Compile Include="Util\RandomMessage.js" />
     <Content Include="package.json" />
+    <Content Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Addons\" />
