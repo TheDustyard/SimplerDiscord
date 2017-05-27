@@ -18,3 +18,6 @@
 </div>
 
 [DOCS](https://github.com/DusterTheFirst/SimplerDiscord/wiki)
+
+[Nuget Package](https://www.npmjs.com/package/simpler-discord) : ```Install-Package simpler-discord```
+
