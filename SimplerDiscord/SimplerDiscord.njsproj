@@ -39,7 +39,13 @@
     <Compile Include="index.js" />
     <Compile Include="Types\Mention.js" />
     <Compile Include="Handlers\MessageHandler.js" />
+    <Compile Include="Util\DeleteQueue.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Util\RandomMessage.js" />
+    <Compile Include="Util\RateLimit.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Content Include="package.json" />
     <Content Include="README.md" />
   </ItemGroup>

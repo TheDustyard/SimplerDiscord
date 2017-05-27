@@ -23,7 +23,7 @@ class MessageHandler {
         console.log(`[SimpleDiscord] ${msg.author.username} sent ${msg.content}, which was replied to by the bot`);
     }
 
-    AddMessage(message, method) {
+    add(message, method) {
         this.commands[message] = method;
     }
 }

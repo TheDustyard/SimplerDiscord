@@ -1,9 +1,12 @@
-﻿class Command {
-    constructor(name, args, description, method) {
+﻿const RateLimit = require("../Util/RateLimit");
+
+class Command {
+    constructor(name, args, description, method, ratelimit) {
         this.name = name;
         this.args = args;
         this.description = description;
         this.method = method;
+        this.ratelimit = new RateLimit(ratelimit);
     }
 
     toString() {

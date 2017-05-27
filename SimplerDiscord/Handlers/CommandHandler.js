@@ -1,19 +1,21 @@
-﻿const Command = require("../Types/Command");
+﻿const SimplerDiscord = require("../index");
+
 const Discord = require("discord.js");
 
 class CommandHandler {
-    constructor(prefix, options) {
+    constructor(prefix, options, ratelimit) {
         this.prefix = prefix;
         this.commands = [];
-        if (options === undefined)
+        this.ratelimit = new SimplerDiscord.RateLimit(ratelimit);
+        if (options === undefined || options === null)
             options = {};
         this.options = options;
         
-        this.Regester(new Command("help", null, "Get All Commands", HelpCommand), "Help Commands");
-        this.Regester(new Command("help", ["command"], "Get Command Info", HelpSearchCommand), "Help Commands");
+        this.regester(new SimplerDiscord.Command("help", null, "Get All Commands", HelpCommand), "Help Commands");
+        this.regester(new SimplerDiscord.Command("help", ["command"], "Get Command Info", HelpSearchCommand), "Help Commands");
     }
 
-    Regester(command, group) {
+    regester(command, group) {
         if (group === undefined)
             group = "Other Commands";
 
@@ -23,7 +25,7 @@ class CommandHandler {
         this.commands[group].push(command);
     }
 
-    hande(message) {
+    handle(message) {
         if (message.content[0] !== this.prefix)
             return;
 
@@ -34,7 +36,7 @@ class CommandHandler {
         var commandname = args[0].substring(this.prefix.length).toLowerCase();
         args.shift();
 
-        var results = this.FindCommand(commandname);
+        var results = this.findCommand(commandname);
 
         var filtered = results.filter(function (item) {
             if (item.args === null) {
@@ -83,19 +85,37 @@ class CommandHandler {
             }
 
             if (filtered.length === 1) {
-                let deleteit = filtered[0].method(message, args, this);
-                if (deleteit) message.delete();
-                console.warn(`[SimpleDiscord] ${message.author.username} Called ${message.content}`);
+                this.runCommand(message, filtered[0], args);
                 return;
             }
         }
 
         if (this.options.notfound)
-            message.channel.send(`Command ***${commandname}*** not found. Type ***${this.prefix}help*** for all commands`);
+            message.channel.send(`Command ***${commandname}*** not found. Type ***${this.prefix}help*** for all commands`)
+                .then(x => DeleteQueue.add(x.id, 1000));
 
     }
 
-    FindCommand(name) {
+    runCommand(msg, command, args) {
+        if (command.ratelimit.delay !== undefined) {
+            if (command.ratelimit.limited(msg.author.username)) {
+                console.log(`[SimpleDiscord] ${msg.author.username} is being rate limited`);
+                return;
+            }
+        } else if (this.ratelimit.delay !== undefined) {
+            if (this.ratelimit.limited(msg.author.username)) {
+                console.log(`[SimpleDiscord] ${msg.author.username} is being rate limited`);
+                return;
+            }
+        }
+
+        let deleteit = command.method(msg, args, this);
+        if (deleteit) msg.delete();
+        console.warn(`[SimpleDiscord] ${msg.author.username} Called ${msg.content}`);
+        return;
+    }
+
+    findCommand(name) {
         var out = [];
 
         for (var index in this.commands) {
