@@ -43,7 +43,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Util\RandomMessage.js" />
-    <Compile Include="Util\RateLimit.js">
+    <Compile Include="Util\RateLimiter.js">
       <SubType>Code</SubType>
     </Compile>
     <Content Include="package.json" />

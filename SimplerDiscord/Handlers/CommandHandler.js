@@ -1,4 +1,7 @@
-﻿const SimplerDiscord = require("../index");
+﻿const Command = require("../Types/Command");
+const RateLimiter = require("../Util/RateLimiter");
+const Queue = require("../Util/DeleteQueue");
+const DeleteQueue = new Queue();
 
 const Discord = require("discord.js");
 
@@ -6,13 +9,13 @@ class CommandHandler {
     constructor(prefix, options, ratelimit) {
         this.prefix = prefix;
         this.commands = [];
-        this.ratelimit = new SimplerDiscord.RateLimit(ratelimit);
+        this.ratelimit = new RateLimiter(ratelimit);
         if (options === undefined || options === null)
             options = {};
         this.options = options;
         
-        this.regester(new SimplerDiscord.Command("help", null, "Get All Commands", HelpCommand), "Help Commands");
-        this.regester(new SimplerDiscord.Command("help", ["command"], "Get Command Info", HelpSearchCommand), "Help Commands");
+        this.regester(new Command("help", null, "Get All Commands", HelpCommand), "Help Commands");
+        this.regester(new Command("help", ["command"], "Get Command Info", HelpSearchCommand), "Help Commands");
     }
 
     regester(command, group) {
@@ -92,7 +95,7 @@ class CommandHandler {
 
         if (this.options.notfound)
             message.channel.send(`Command ***${commandname}*** not found. Type ***${this.prefix}help*** for all commands`)
-                .then(x => DeleteQueue.add(x.id, 1000));
+                .then(x => DeleteQueue.add(x.id, 10000));
 
     }
 

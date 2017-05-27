@@ -1,4 +1,4 @@
-﻿class RateLimit {
+﻿class RateLimiter {
     constructor(delay) {
         this.delay = delay;
         //this.last = new Date();
@@ -28,4 +28,4 @@
     }
 }
 
-module.exports = RateLimit;
+module.exports = RateLimiter;

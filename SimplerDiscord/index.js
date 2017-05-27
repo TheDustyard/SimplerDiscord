@@ -1,6 +1,4 @@
-﻿var Delete = require("./Util/DeleteQueue");
-
-module.exports = {
+﻿module.exports = {
     //TYPES
     Command: require("./Types/Command"),
     Mention: require("./Types/Mention"),
@@ -11,8 +9,8 @@ module.exports = {
 
     //UTIL
     RandomMessage: require("./Util/RandomMessage"),
-    RateLimit: require("./Util/RateLimit"),
-    DeleteQueue: new Delete(),
+    RateLimiter: require("./Util/RateLimiter"),
+    DeleteQueue: require("./Util/DeleteQueue"),
 
     //METHODS
     getEmoji: (name, guild) => `<:${name}:${guild.emojis.find('name', name).id}>`,

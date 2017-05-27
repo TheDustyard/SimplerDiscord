@@ -1,4 +1,4 @@
-﻿const RateLimit = require("../Util/RateLimit");
+﻿const RateLimiter = require("../Util/RateLimiter");
 
 class Command {
     constructor(name, args, description, method, ratelimit) {
@@ -6,7 +6,7 @@ class Command {
         this.args = args;
         this.description = description;
         this.method = method;
-        this.ratelimit = new RateLimit(ratelimit);
+        this.ratelimit = new RateLimiter(ratelimit);
     }
 
     toString() {

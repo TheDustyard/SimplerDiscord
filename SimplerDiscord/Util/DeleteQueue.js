@@ -1,21 +1,23 @@
 ﻿class DeleteQueue {
 
     constructor() {
-        this.list = [];
+        this.todelete = [];
         this.start();
     }
 
     add(id, delay) {
-        this.list[id] = new Date().valueOf() + delay;
-        console.log(id);
+        this.todelete.push({ id: id, delay: new Date().valueOf() + delay });
     }
 
-    tick() {
-        console.log(this.list);
+    tick(queue) {
+        for (var index in queue.todelete) {
+            console.log(queue.todelete[index]);
+        }
+        console.log(queue.todelete);
     }
 
     start() {
-        this.interval = setInterval(this.tick, 1000);
+        this.interval = setInterval(this.tick, 1000, this);
     }
 
     stop() {
