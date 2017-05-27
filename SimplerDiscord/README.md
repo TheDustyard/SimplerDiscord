@@ -17,8 +17,4 @@
   </p>
 </div>
 
-[View on GitHub](https://github.com/DusterTheFirst/SimplerDiscord)
-
-[View on NPM](https://www.npmjs.com/package/simpler-discord)
-
 [DOCS](https://github.com/DusterTheFirst/SimplerDiscord/wiki)
