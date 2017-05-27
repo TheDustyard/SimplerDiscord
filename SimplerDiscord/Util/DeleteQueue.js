@@ -5,15 +5,18 @@
         this.start();
     }
 
-    add(id, delay) {
-        this.todelete.push({ id: id, delay: new Date().valueOf() + delay });
+    add(message, delay) {
+        this.todelete.push({ message: message, delay: new Date().valueOf() + delay });
     }
 
     tick(queue) {
         for (var index in queue.todelete) {
-            console.log(queue.todelete[index]);
+            if (queue.todelete[index].delay < new Date().valueOf()) {
+                queue.todelete[index].message.delete();
+                delete queue.todelete[index];
+            }
         }
-        console.log(queue.todelete);
+        //console.log(queue.todelete);
     }
 
     start() {

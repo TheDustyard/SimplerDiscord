@@ -3,7 +3,7 @@ const Command = require("../Types/Command");
 
 class MessageHandler {
     constructor() {
-        this.commands = [];
+        this.messages = [];
         //this.commandsAsList = new Command("replies", null, "Get all the messages the bot will reply to", (message, args, handler) => {
         //    message.channel.send("Messages that the bot will reply to:");
         //    message.channel.send(Object.keys(this.commands).join("\n"), {code: true});
@@ -14,17 +14,22 @@ class MessageHandler {
         if (msg.author.bot)
             return;
 
-        var method = this.commands[msg.content.toLowerCase()];
+        var message = this.messages.find((val, index, obj) => val.message === msg.content.toLowerCase());
 
-        if (!method)
+        if (message === null || message === undefined)
             return;
+
+        var method = message.method;
 
         method(msg);
         console.log(`[SimpleDiscord] ${msg.author.username} sent ${msg.content}, which was replied to by the bot`);
     }
 
     add(message, method) {
-        this.commands[message] = method;
+        this.messages.push({
+            method: method,
+            message: message
+        });
     }
 }
 

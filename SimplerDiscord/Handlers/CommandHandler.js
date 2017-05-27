@@ -95,7 +95,7 @@ class CommandHandler {
 
         if (this.options.notfound)
             message.channel.send(`Command ***${commandname}*** not found. Type ***${this.prefix}help*** for all commands`)
-                .then(x => DeleteQueue.add(x.id, 10000));
+                .then(x => DeleteQueue.add(x, 10000));
 
     }
 
@@ -103,11 +103,15 @@ class CommandHandler {
         if (command.ratelimit.delay !== undefined) {
             if (command.ratelimit.limited(msg.author.username)) {
                 console.log(`[SimpleDiscord] ${msg.author.username} is being rate limited`);
+                msg.channel.send(`Slow Down!!`)
+                    .then(x => DeleteQueue.add(x, 2000));
                 return;
             }
         } else if (this.ratelimit.delay !== undefined) {
             if (this.ratelimit.limited(msg.author.username)) {
                 console.log(`[SimpleDiscord] ${msg.author.username} is being rate limited`);
+                msg.channel.send(`Slow Down!!`)
+                    .then(x => DeleteQueue.add(x, 2000));
                 return;
             }
         }
@@ -137,7 +141,7 @@ class CommandHandler {
 function HelpCommand(message, args, handler) {
     var helpembed = new Discord.RichEmbed();
     if (handler.options.color === undefined)
-        helpembed.color = 5446319;
+        helpembed.color = message.guild.me.colorRole.color;
     else
         helpembed.color = handler.options.color;
 
@@ -170,6 +174,11 @@ function HelpSearchCommand(message, args, handler) {
     var commands = handler.FindCommand(args[0]);
 
     var helpembed = new Discord.RichEmbed();
+    if (handler.options.color === undefined)
+        helpembed.color = message.guild.me.colorRole.color;
+    else
+        helpembed.color = handler.options.color;
+
     helpembed.setColor(5446319);
     helpembed.setTitle(`Results for ${args}`);
 

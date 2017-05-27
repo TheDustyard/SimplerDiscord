@@ -1,21 +1,18 @@
 ﻿class RateLimiter {
     constructor(delay) {
         this.delay = delay;
-        //this.last = new Date();
         this.array = [];
     }
 
     limited(name) {
         var last = this.array[name];
-        if (last === undefined)
+        if (last === undefined) {
             last = new Date();
+            this.array[name] = last;
+            return false;
+        }
 
         var now = new Date();
-        //console.log(this.array);
-        //console.log(this.delay);
-        //console.log(now.valueOf());
-        //console.log(last.valueOf() + this.delay);
-        //console.log(last.valueOf() + this.delay >= now.valueOf());
 
         var is = last.valueOf() + this.delay >= now.valueOf();
 

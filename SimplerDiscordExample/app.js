@@ -5,7 +5,7 @@ const SimplerDiscord = require("../SimplerDiscord/index");
 
 const client = new Discord.Client();
 
-var Commands = new SimplerDiscord.CommandHandler("!", {color: 696969, notfound: true}, 1000);
+var Commands = new SimplerDiscord.CommandHandler("!", { color: undefined, notfound: true }, 5000);
 var Messages = new SimplerDiscord.MessageHandler();
 
 var PingCommand = new SimplerDiscord.Command("ping", null, "Ping the bot", Ping);
@@ -14,7 +14,7 @@ var CombineCommand = new SimplerDiscord.Command("combine", ["first", "second"], 
 Commands.regester(PingCommand, "Utility Commands");
 Commands.regester(CombineCommand, "Utility Commands");
 
-Messages.add("poop", (msg) => msg.channel.send("POOP!"));
+Messages.add("poop", function (msg) { msg.channel.send("POOP!"); });
 
 function Ping(message, args, handler) {
     var responses = new SimplerDiscord.RandomMessage(["POOP", "POP", "NOP", "DAB", SimplerDiscord.getEmoji("god", message.guild)]);
