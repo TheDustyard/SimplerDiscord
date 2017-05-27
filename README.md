@@ -17,8 +17,6 @@
   </p>
 </div>
 
-![gif](https://cdn.discordapp.com/attachments/313657969994891264/316976357517033472/not_from_a_net.gif)
-
 [View on GitHub](https://github.com/DusterTheFirst/SimplerDiscord)
 
 [View on NPM](https://www.npmjs.com/package/simpler-discord)
