@@ -101,19 +101,9 @@ class CommandHandler {
 
     runCommand(msg, command, args) {
         if (command.ratelimit.delay !== undefined) {
-            if (command.ratelimit.limited(msg.author.username)) {
-                console.log(`[SimpleDiscord] ${msg.author.username} is being rate limited`);
-                msg.channel.send(`Slow Down!!`)
-                    .then(x => DeleteQueue.add(x, 2000));
-                return;
-            }
+            if (RateLimited(command.ratelimit)) return;
         } else if (this.ratelimit.delay !== undefined) {
-            if (this.ratelimit.limited(msg.author.username)) {
-                console.log(`[SimpleDiscord] ${msg.author.username} is being rate limited`);
-                msg.channel.send(`Slow Down!!`)
-                    .then(x => DeleteQueue.add(x, 2000));
-                return;
-            }
+            if (RateLimited(this.ratelimit)) return;
         }
 
         let deleteit = command.method(msg, args, this);
@@ -138,12 +128,28 @@ class CommandHandler {
     }
 }
 
-function HelpCommand(message, args, handler) {
+function RateLimited(ratelimit, msg) {
+    if (ratelimit.limited(msg.author.username)) {
+        console.log(`[SimpleDiscord] ${msg.author.username} is being rate limited`);
+        msg.channel.send(`Slow Down!!`)
+            .then(x => DeleteQueue.add(x, 2000));
+        return true;
+    }
+    return false;
+}
+
+function CreateEmbed(handler, message) {
     var helpembed = new Discord.RichEmbed();
     if (handler.options.color === undefined)
         helpembed.color = message.guild.me.colorRole.color;
     else
         helpembed.color = handler.options.color;
+
+    return helpembed;
+}
+
+function HelpCommand(message, args, handler) {
+    var helpembed = CreateEmbed(handler, message);
 
     for (var group in handler.commands) {
         var outp = "";
@@ -173,13 +179,8 @@ function HelpCommand(message, args, handler) {
 function HelpSearchCommand(message, args, handler) {
     var commands = handler.FindCommand(args[0]);
 
-    var helpembed = new Discord.RichEmbed();
-    if (handler.options.color === undefined)
-        helpembed.color = message.guild.me.colorRole.color;
-    else
-        helpembed.color = handler.options.color;
-
-    helpembed.setColor(5446319);
+    var helpembed = CreateEmbed(handler, message);
+    
     helpembed.setTitle(`Results for ${args}`);
 
     for (var command in commands) {
