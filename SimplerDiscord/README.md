@@ -17,4 +17,6 @@
   </p>
 </div>
 
+Simpler Discord is an addon to [Discord.js](https://discord.js.org/#/) to make it easier and cleaner to program
+
 [DOCS](https://github.com/DusterTheFirst/SimplerDiscord/wiki)

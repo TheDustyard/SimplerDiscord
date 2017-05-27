@@ -17,7 +17,9 @@
   </p>
 </div>
 
+Simpler Discord is an addon to [Discord.js](https://discord.js.org/#/) to make it easier and cleaner to program
+
 [DOCS](https://github.com/DusterTheFirst/SimplerDiscord/wiki)
 
-[Nuget Package](https://www.npmjs.com/package/simpler-discord) : ```Install-Package simpler-discord```
+[Nuget Package](https://www.npmjs.com/package/simpler-discord) : ```npm install --save simpler-discord```
 
