@@ -9,6 +9,7 @@
   "homepage": "https://github.com/DusterTheFirst/SimplerDiscord",
   "license": "http://www.apache.org/licenses/LICENSE-2.0",
   "dependencies": {
+    "colors": "^1.1.2",
     "discord.js": "^11.1.0"
   }
 }

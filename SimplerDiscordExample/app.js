@@ -5,25 +5,28 @@ const SimplerDiscord = require("../SimplerDiscord/index");
 
 const client = new Discord.Client();
 
-var Commands = new SimplerDiscord.CommandHandler("!", { color: undefined, notfound: true }, 5000);
+var Commands = new SimplerDiscord.CommandHandler("db!", { color: undefined, notfound: true }, 5000);
 var Messages = new SimplerDiscord.MessageHandler();
 
 var PingCommand = new SimplerDiscord.Command("ping", null, "Ping the bot", Ping);
-var CombineCommand = new SimplerDiscord.Command("combine", ["first", "second"], "Combine the two strings", Combine);
+var CombineCommand = new SimplerDiscord.Command("combine", true, "Combine the two strings", Combine);
 
 Commands.regester(PingCommand, "Utility Commands");
 Commands.regester(CombineCommand, "Utility Commands");
 
 Messages.add("poop", function (msg) { msg.channel.send("POOP!"); });
+Messages.add("did you know you can become a discord partner", function (msg) { msg.channel.send("DIE, PLEASE!"); }, true);
+Messages.add("AAAAAAAA", function (msg) { msg.channel.send("AAAAAAAAAAAAAAAAAAAAAAAAAAAA"); }, 2);
 
 function Ping(message, args, handler) {
     var responses = new SimplerDiscord.RandomMessage(["POOP", "POP", "NOP", "DAB", SimplerDiscord.getEmoji("god", message.guild)]);
-    message.channel.send(responses.chooose());
+    message.channel.send(responses.chooose())
+        .then(x => DeleteQueue.add(x, 10000));
     return true;
 }
 
 function Combine(message, args, handler) {
-    message.channel.send(args[0] + args[1]);
+    message.channel.send(args);
 }
 
 client.on('ready', () => {
@@ -36,3 +39,14 @@ client.on('message', msg => {
 });
 
 client.login(settings.token);
+
+var loggerHandler = new SimplerDiscord.LoggerCommandHandler(client);
+
+var logger = new SimplerDiscord.BetterLogger(loggerHandler);
+
+logger.start();
+
+console.log("LOG");
+console.info("INFO");
+console.warn("WARN");
+console.error("ERROR");

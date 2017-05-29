@@ -5,6 +5,8 @@ const DeleteQueue = new Queue();
 
 const Discord = require("discord.js");
 
+var afks = [];
+
 class CommandHandler {
     constructor(prefix, options, ratelimit) {
         this.prefix = prefix;
@@ -13,9 +15,11 @@ class CommandHandler {
         if (options === undefined || options === null)
             options = {};
         this.options = options;
+        this.vars = {};
         
         this.regester(new Command("help", null, "Get All Commands", HelpCommand), "Help Commands");
         this.regester(new Command("help", ["command"], "Get Command Info", HelpSearchCommand), "Help Commands");
+        this.regester(new Command("afk", true, "Go AFK", AFK, 10000));
     }
 
     regester(command, group) {
@@ -29,7 +33,9 @@ class CommandHandler {
     }
 
     handle(message) {
-        if (message.content[0] !== this.prefix)
+        UnAFK(message, this);
+
+        if (!message.content.startsWith(this.prefix))
             return;
 
         if (message.author.bot)
@@ -44,8 +50,8 @@ class CommandHandler {
         var filtered = results.filter(function (item) {
             if (item.args === null) {
                 return args.length === 0;
-            //} else if (typeof item.args === "boolean"){
-            //    return true;
+            } else if (typeof item.args === "boolean"){
+                return true;
             } else {
                 return item.args.length === args.length;
             }
@@ -66,20 +72,17 @@ class CommandHandler {
         }
 
         if (filtered.length > 0) {
-            //if (filtered.some(x => typeof x.args !== "boolean")) {
-            //    var morefiltered = filtered.filter(x => typeof x.args === "boolean");
-            //    console.log(morefiltered);
-            //    if (morefiltered.length === 1) {
-            //        let deleteit = morefiltered[0].method(message, args.join(" "), this);
-            //        if (deleteit) message.delete();
-            //        console.warn(`[SimpleDiscord] ${message.author.username} Called ${message.content}`);
-            //        return;
-            //    } else if (morefiltered.length > 1) {
-            //        console.log(`[SimpleDiscord] !!TWO COMMANDS ARE INTERFERING WITH EACHOTHER!!\n${filtered.map((item) => item.name)}`);
-            //        message.channel.send(`Internal Error`);
-            //        return;
-            //    }
-            //}
+            if (filtered.some(x => typeof x.args === "boolean")) {
+                var morefiltered = filtered.filter(x => typeof x.args === "boolean");
+                if (morefiltered.length === 1) {
+                    this.runCommand(message, morefiltered[0], args.join(" "));
+                    return;
+                } else if (morefiltered.length > 1) {
+                    console.log(`[SimpleDiscord] !!TWO COMMANDS ARE INTERFERING WITH EACHOTHER!!\n${filtered.map((item) => item.name)}`);
+                    message.channel.send(`Internal Error`);
+                    return;
+                }
+            }
 
             if (filtered.length > 1) {
                 console.log(`[SimpleDiscord] !!TWO COMMANDS ARE INTERFERING WITH EACHOTHER!!\n${filtered.map((item) => item.name)}`);
@@ -101,9 +104,9 @@ class CommandHandler {
 
     runCommand(msg, command, args) {
         if (command.ratelimit.delay !== undefined) {
-            if (RateLimited(command.ratelimit)) return;
+            if (RateLimited(command.ratelimit, msg)) return;
         } else if (this.ratelimit.delay !== undefined) {
-            if (RateLimited(this.ratelimit)) return;
+            if (RateLimited(this.ratelimit, msg)) return;
         }
 
         let deleteit = command.method(msg, args, this);
@@ -160,11 +163,11 @@ function HelpCommand(message, args, handler) {
 
             var cmdargs;
 
-            //if (typeof command.args === "boolean") {
-            //    cmdargs = ["[text]"];
-            //} else {
+            if (typeof command.args === "boolean") {
+                cmdargs = ["[text]"];
+            } else {
                 cmdargs = command.args.map((item) => `[${item}] `);
-            //}
+            }
 
             outp += `${handler.prefix}${command.name} ${cmdargs.join("")}- *${command.description}*\n`;
         }
@@ -186,6 +189,9 @@ function HelpSearchCommand(message, args, handler) {
     for (var command in commands) {
         command = commands[command];
         if (command.args === null) command.args = [];
+        if (typeof command.args === "boolean") {
+            command.args = ["[text]"];
+        }
 
         var outp = `*Arguments*: ${command.args.join(", ")}` +
                    `\n*Description*: ${command.description}`;
@@ -196,6 +202,38 @@ function HelpSearchCommand(message, args, handler) {
     message.channel.send("", {
         embed: helpembed
     });
+}
+
+function AFK(message, args, handler) {
+    if (args === "")
+        args = "AFK";
+
+    afks[message.author.username] = args;
+
+    message.channel.send(`${message.author.username} I set your AFK: ${args}`);
+}
+
+function UnAFK(message, handler) {
+    checkMention(message, afks);
+
+    if (afks[message.author.username] === undefined || afks[message.author.username] === null)
+        return;
+
+    delete afks[message.author.username];
+
+    message.channel.send(`Welcome back ${message.author}`)
+        .then(x => DeleteQueue.add(x, 10000));
+}
+
+function checkMention(msg, afks) {
+    if (msg.author.bot) return;
+    if (!msg.mentions.members) return;
+    var mentions = msg.mentions.members.array();
+    for (person in afks) {
+        if (mentions.some(x => x.user.username === person))
+            msg.channel.send(`**${person}** is *AFK*: ${afks[person]}`);
+    }
+    console.log(mentions);
 }
 
 module.exports = CommandHandler;

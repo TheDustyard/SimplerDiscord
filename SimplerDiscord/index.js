@@ -11,10 +11,13 @@
     RandomMessage: require("./Util/RandomMessage"),
     RateLimiter: require("./Util/RateLimiter"),
     DeleteQueue: require("./Util/DeleteQueue"),
+    StringUtils: require("./Util/StringUtils"),
+    BetterLogger: require("./Util/BetterLogger"),
+    LoggerCommandHandler: require("./Handlers/LoggerCommandHandler"),
 
     //METHODS
     getEmoji: (name, guild) => `<:${name}:${guild.emojis.find('name', name).id}>`,
 
     //ADDONS
-    Addons: require("./Addons")
+    Extras: require("./Extras")
 };
