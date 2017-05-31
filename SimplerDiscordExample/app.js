@@ -5,14 +5,16 @@ const SimplerDiscord = require("../SimplerDiscord/index");
 
 const client = new Discord.Client();
 
+var Paginator = new SimplerDiscord.Paginator(client);
+
 var Commands = new SimplerDiscord.CommandHandler("db!", { color: undefined, notfound: true }, 5000);
 var Messages = new SimplerDiscord.MessageHandler();
 
 var PingCommand = new SimplerDiscord.Command("ping", null, "Ping the bot", Ping);
-var CombineCommand = new SimplerDiscord.Command("combine", true, "Combine the two strings", Combine);
+var EchoCommand = new SimplerDiscord.Command("echo", true, "Echo the string", Echo);
 
 Commands.regester(PingCommand, "Utility Commands");
-Commands.regester(CombineCommand, "Utility Commands");
+Commands.regester(EchoCommand, "Fun Commands");
 
 Messages.add("poop", function (msg) { msg.channel.send("POOP!"); });
 Messages.add("did you know you can become a discord partner", function (msg) { msg.channel.send("DIE, PLEASE!"); }, true);
@@ -25,12 +27,15 @@ function Ping(message, args, handler) {
     return true;
 }
 
-function Combine(message, args, handler) {
-    message.channel.send(args);
+function Echo(message, args, handler) {
+    message.channel.send(args + " " + SimplerDiscord.getEmoji("god", message.guild));
+
+    Paginator.SendPaginatedMessage(message.channel, new SimplerDiscord.PaginatedMessage(["y", "o", "i", "n", "k"], "PAGE"));
 }
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.username}!`);
+
 });
 
 client.on('message', msg => {

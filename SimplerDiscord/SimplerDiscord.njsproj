@@ -32,8 +32,6 @@
     <Compile Include="Util\BetterLogger.js">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Extras\Commands.js" />
-    <Compile Include="Extras\index.js" />
     <Compile Include="Handlers\LoggerCommandHandler.js">
       <SubType>Code</SubType>
     </Compile>
@@ -56,7 +54,6 @@
     <Content Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Extras\" />
     <Folder Include="Handlers\" />
     <Folder Include="Types\" />
     <Folder Include="Util\" />

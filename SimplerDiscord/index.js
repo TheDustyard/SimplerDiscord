@@ -16,8 +16,5 @@
     LoggerCommandHandler: require("./Handlers/LoggerCommandHandler"),
 
     //METHODS
-    getEmoji: (name, guild) => `<:${name}:${guild.emojis.find('name', name).id}>`,
-
-    //ADDONS
-    Extras: require("./Extras")
+    getEmoji: (name, guild) => `<:${name}:${guild.emojis.find('name', name).id}>`
 };

@@ -16,7 +16,6 @@
                 delete queue.todelete[index];
             }
         }
-        //console.log(queue.todelete);
     }
 
     start() {

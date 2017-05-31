@@ -19,7 +19,7 @@ class CommandHandler {
         
         this.regester(new Command("help", null, "Get All Commands", HelpCommand), "Help Commands");
         this.regester(new Command("help", ["command"], "Get Command Info", HelpSearchCommand), "Help Commands");
-        this.regester(new Command("afk", true, "Go AFK", AFK, 10000));
+        this.regester(new Command("afk", true, "Go AFK", AFK, 10000), "Utility Commands");
     }
 
     regester(command, group) {
@@ -111,7 +111,7 @@ class CommandHandler {
 
         let deleteit = command.method(msg, args, this);
         if (deleteit) msg.delete();
-        console.warn(`[SimpleDiscord] ${msg.author.username} Called ${msg.content}`);
+        console.log(`[SimpleDiscord] ${msg.author.username} Called ${msg.content}`);
         return;
     }
 
@@ -180,24 +180,29 @@ function HelpCommand(message, args, handler) {
 }
 
 function HelpSearchCommand(message, args, handler) {
-    var commands = handler.FindCommand(args[0]);
+    var commands = handler.findCommand(args[0]);
 
     var helpembed = CreateEmbed(handler, message);
     
     helpembed.setTitle(`Results for ${args}`);
 
-    for (var command in commands) {
-        command = commands[command];
-        if (command.args === null) command.args = [];
-        if (typeof command.args === "boolean") {
-            command.args = ["[text]"];
+    if (commands.length > 0) {
+        for (var command in commands) {
+            command = commands[command];
+            if (command.args === null) command.args = [];
+            if (typeof command.args === "boolean") {
+                command.args = ["[text]"];
+            }
+
+            var outp = `*Arguments*: ${command.args.join(", ")}` +
+                `\n*Description*: ${command.description}`;
+
+            helpembed.addField(handler.prefix + command.name, outp, false);
         }
-
-        var outp = `*Arguments*: ${command.args.join(", ")}` +
-                   `\n*Description*: ${command.description}`;
-
-        helpembed.addField(handler.prefix + command.name, outp, false);
+    } else {
+        helpembed.setDescription("No results");
     }
+
 
     message.channel.send("", {
         embed: helpembed
@@ -210,7 +215,10 @@ function AFK(message, args, handler) {
 
     afks[message.author.username] = args;
 
-    message.channel.send(`${message.author.username} I set your AFK: ${args}`);
+    message.channel.send(`${message.author}, I set your AFK: ${args}`)
+        .then(x => DeleteQueue.add(x, 5000));
+
+    return true;
 }
 
 function UnAFK(message, handler) {
@@ -231,9 +239,9 @@ function checkMention(msg, afks) {
     var mentions = msg.mentions.members.array();
     for (person in afks) {
         if (mentions.some(x => x.user.username === person))
-            msg.channel.send(`**${person}** is *AFK*: ${afks[person]}`);
+            msg.channel.send(`**${person}** is *AFK*: ${afks[person]}`)
+                .then(x => DeleteQueue.add(x, 10000));
     }
-    console.log(mentions);
 }
 
 module.exports = CommandHandler;
