@@ -44,35 +44,34 @@
         console.log(`${command} is not recognized as an internal or external command`);
     }
 
-    completer(line) {
-        var completions = ["help", "command1", "command2", "login", "check", "ping"];
-        var hits = completions.filter(function(c) {
-            return c.indexOf(line) === 0;
-        });
+    //completer(handler, line) {
+    //    var completions = handler.commands.map(x => x.name);
+    //    var hits = completions.filter(function(c) {
+    //        return c.indexOf(line) === 0;
+    //    });
 
-        if (hits.length === 1) {
-            return [hits, line];
-        } else {
-            console.log("Suggest :");
-            var list = "",
-                l = 0,
-                c = "",
-                t = hits.length ? hits : completions;
-            for (var i = 0; i < t.length; i++) {
-                c = t[i].replace(/(\s*)$/g, "");
-                if (list !== "") {
-                    list += ", ";
-                }
-                if ((list + c).length + 4 - l > process.stdout.columns) {
-                    list += "\n";
-                    l = list.length;
-                }
-                list += c;
-            }
-            console.log(list + "\n");
-            return [hits, line];
-        }
-    }
+    //    if (hits.length === 1) {
+    //        return [hits, line];
+    //    } else {
+    //        var list = "",
+    //            l = 0,
+    //            c = "",
+    //            t = hits.length ? hits : completions;
+    //        for (var i = 0; i < t.length; i++) {
+    //            c = t[i].replace(/(\s*)$/g, "");
+    //            if (list !== "") {
+    //                list += ", ";
+    //            }
+    //            if ((list + c).length + 4 - l > process.stdout.columns) {
+    //                list += "\n";
+    //                l = list.length;
+    //            }
+    //            list += c;
+    //        }
+    //        console.log(list + "\n");
+    //        return [hits, line];
+    //    }
+    //}
 }
 
 module.exports = LoggerCommandHandler;

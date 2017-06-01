@@ -11,13 +11,13 @@ class BetterLogger {
         var readline = require('readline'),
             util = require('util');
 
+        let that = this;
+
         var rl = readline.createInterface({
             input: process.stdin,
-            output: process.stdout,
-            completer: this.handler.completer
+            output: process.stdout
+            //completer: (line) => { that.handler.completer(that.handler, line);}
         });
-
-        var that = this;
 
         rl.setPrompt("> ", 2);
         rl.on("line", function (line) {
