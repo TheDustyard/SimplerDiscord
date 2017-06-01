@@ -29,7 +29,6 @@
         this.commands.push({ name: name, description: description, method: method });
     }
 
-    //  TODO: MAKE BETTER
     handle(tohandle) {
         var command = tohandle.split(" ")[0];
         var args = tohandle.split(" ");
