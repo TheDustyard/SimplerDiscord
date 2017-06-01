@@ -5,8 +5,7 @@ const SimplerDiscord = require("../SimplerDiscord/index");
 
 const client = new Discord.Client();
 
-var Paginator = new SimplerDiscord.Paginator(client);
-
+var DeleteQueue = new SimplerDiscord.DeleteQueue();
 var Commands = new SimplerDiscord.CommandHandler("db!", { color: undefined, notfound: true }, 5000);
 var Messages = new SimplerDiscord.MessageHandler();
 
@@ -29,8 +28,6 @@ function Ping(message, args, handler) {
 
 function Echo(message, args, handler) {
     message.channel.send(args + " " + SimplerDiscord.getEmoji("god", message.guild));
-
-    Paginator.SendPaginatedMessage(message.channel, new SimplerDiscord.PaginatedMessage(["y", "o", "i", "n", "k"], "PAGE"));
 }
 
 client.on('ready', () => {

@@ -41,13 +41,13 @@ class CommandHandler {
         if (message.author.bot)
             return;
 
-        var args = message.content.toLowerCase().trim().split(" ");
-        var commandname = args[0].substring(this.prefix.length).toLowerCase();
+        let args = message.content.toLowerCase().trim().split(" ");
+        let commandname = args[0].substring(this.prefix.length).toLowerCase();
         args.shift();
 
-        var results = this.findCommand(commandname);
+        let results = this.findCommand(commandname);
 
-        var filtered = results.filter(function (item) {
+        let filtered = results.filter(function (item) {
             if (item.args === null) {
                 return args.length === 0;
             } else if (typeof item.args === "boolean"){
@@ -58,12 +58,12 @@ class CommandHandler {
         });
 
         if (filtered.length === 0 && results.length > 0) {
-            var argumentz = results.map(function (item) {
+            let argumentz = results.map(function (item) {
                 if (item.args === null)
                     return 0;
                 return item.args.length;
             });
-            var argz = "";
+            let argz = "";
             if (argumentz !== null) {
                 argz = argumentz.join(', or ');
             }
@@ -73,20 +73,18 @@ class CommandHandler {
 
         if (filtered.length > 0) {
             if (filtered.some(x => typeof x.args === "boolean")) {
-                var morefiltered = filtered.filter(x => typeof x.args === "boolean");
+                let morefiltered = filtered.filter(x => typeof x.args === "boolean");
                 if (morefiltered.length === 1) {
                     this.runCommand(message, morefiltered[0], args.join(" "));
                     return;
                 } else if (morefiltered.length > 1) {
-                    console.log(`[SimpleDiscord] !!TWO COMMANDS ARE INTERFERING WITH EACHOTHER!!\n${filtered.map((item) => item.name)}`);
-                    message.channel.send(`Internal Error`);
+                    twoCommandsInterfiere(morefiltered, message);
                     return;
                 }
             }
 
             if (filtered.length > 1) {
-                console.log(`[SimpleDiscord] !!TWO COMMANDS ARE INTERFERING WITH EACHOTHER!!\n${filtered.map((item) => item.name)}`);
-                message.channel.send(`Internal Error`);
+                twoCommandsInterfiere(filtered, message);
                 return;
             }
 
@@ -100,6 +98,11 @@ class CommandHandler {
             message.channel.send(`Command ***${commandname}*** not found. Type ***${this.prefix}help*** for all commands`)
                 .then(x => DeleteQueue.add(x, 10000));
 
+    }
+
+    twoCommandsInterfiere(filtered, message) {
+        console.log(`[SimpleDiscord] !!TWO COMMANDS ARE INTERFERING WITH EACHOTHER!!\n${filtered.map((item) => item.name)}`);
+        message.channel.send(`Internal Error`);
     }
 
     runCommand(msg, command, args) {
