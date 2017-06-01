@@ -12,7 +12,7 @@
     <a href="https://codeclimate.com/github/DusterTheFirst/SimplerDiscord"><img src="https://codeclimate.com/github/DusterTheFirst/SimplerDiscord/badges/gpa.svg"/></a>
     <a href="https://codeclimate.com/github/DusterTheFirst/SimplerDiscord"><img src="https://codeclimate.com/github/DusterTheFirst/SimplerDiscord/badges/issue_count.svg" /></a>
     <a href="https://github.com/DusterTheFirst/SimplerDiscord/issues"><img sec="https://img.shields.io/github/issues/badges/shields.svg"/></a>
-    <a href="https://discord.gg/PbEc9Rg"><img src="https://img.shields.io/discord/102860784329052160.svg"/></a>
+    <a href="https://discord.gg/PbEc9Rg"><img src="https://img.shields.io/discord/102860784329052160.svg?label=discord&colorA=6174b7&colorB=7289DA"/></a>
   </p>
   <p>
     <a href="https://nodei.co/npm/simpler-discord/"><img src="https://nodei.co/npm/simpler-discord.png?downloads=true&stars=true" alt="NPM info" /></a>
