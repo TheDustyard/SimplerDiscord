@@ -11,6 +11,7 @@
     </a>
     <a href="https://codeclimate.com/github/DusterTheFirst/SimplerDiscord"><img src="https://codeclimate.com/github/DusterTheFirst/SimplerDiscord/badges/gpa.svg"/></a>
     <a href="https://codeclimate.com/github/DusterTheFirst/SimplerDiscord"><img src="https://codeclimate.com/github/DusterTheFirst/SimplerDiscord/badges/issue_count.svg" /></a>
+    <a href="https://DISCORDAPP.COm"><img src="https://img.shields.io/discord/102860784329052160.svg"/></a>
   </p>
   <p>
     <a href="https://nodei.co/npm/simpler-discord/"><img src="https://nodei.co/npm/simpler-discord.png?downloads=true&stars=true" alt="NPM info" /></a>
