@@ -1,12 +1,12 @@
 ﻿const Discord = require("discord.js");
 const settings = require('./setting.json');
-//const SimplerDiscord = require("Simpler-Discord");
-const SimplerDiscord = require("../SimplerDiscord/index");
+const SimplerDiscord = require("Simpler-Discord");
+//const SimplerDiscord = require("../SimplerDiscord/index");
 
 const client = new Discord.Client();
 
 var DeleteQueue = new SimplerDiscord.DeleteQueue();
-var Commands = new SimplerDiscord.CommandHandler("db!", { color: undefined, notfound: true }, 5000);
+var Commands = new SimplerDiscord.CommandHandler("d!", { color: undefined, notfound: true }, 5000);
 var Messages = new SimplerDiscord.MessageHandler();
 
 var PingCommand = new SimplerDiscord.Command("ping", null, "Ping the bot", Ping);
