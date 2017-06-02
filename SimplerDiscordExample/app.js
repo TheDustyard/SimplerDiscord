@@ -12,8 +12,8 @@ var Messages = new SimplerDiscord.MessageHandler();
 var PingCommand = new SimplerDiscord.Command("ping", null, "Ping the bot", Ping);
 var EchoCommand = new SimplerDiscord.Command("echo", true, "Echo the string", Echo);
 
-Commands.regester(PingCommand, "Utility Commands");
-Commands.regester(EchoCommand, "Fun Commands");
+Commands.register(PingCommand, "Utility Commands");
+Commands.register(EchoCommand, "Fun Commands");
 
 Messages.add("poop", function (msg) { msg.channel.send("POOP!"); });
 Messages.add("did you know you can become a discord partner", function (msg) { msg.channel.send("DIE, PLEASE!"); }, true);
