@@ -22,7 +22,7 @@ class CommandHandler {
         this.regester(new Command("afk", true, "Go AFK", AFK, 10000), "Utility Commands");
     }
 
-    regester(command, group) {
+    register(command, group) {
         if (group === undefined)
             group = "Other Commands";
 
