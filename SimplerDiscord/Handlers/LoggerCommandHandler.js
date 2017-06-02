@@ -5,10 +5,10 @@
         this.commands = [];
         this.vars = {};
 
-        this.regester("help", "Get all commands avaliable to you", (args, handler) => {
+        this.register("help", "Get all commands avaliable to you", (args, handler) => {
             console.log(handler.commands.map(x => `${x.name} - ${x.description}`.bold).join("\n"));
         });
-        this.regester("channel", "Connect to a channel", (args, handler) => {
+        this.register("channel", "Connect to a channel", (args, handler) => {
             handler.vars.channel = handler.client.channels.get(args[0]);
             if (handler.vars.channel === null || handler.vars.channel === undefined) {
                 console.log(`CANNOT FIND CHANNEL ${args[0]}`);
@@ -16,7 +16,7 @@
             }
             console.log(`SWITCHED CHANNEL TO ${handler.vars.channel.name}`);
         });
-        this.regester("say", "Send message to connected channel", (args, handler) => {
+        this.register("say", "Send message to connected channel", (args, handler) => {
             if (handler.vars.channel === undefined) {
                 console.error("NO CHANNEL SELECTED");
                 return;
@@ -25,7 +25,7 @@
         });
     }
 
-    regester(name, description, method) {
+    register(name, description, method) {
         this.commands.push({ name: name, description: description, method: method });
     }
 
