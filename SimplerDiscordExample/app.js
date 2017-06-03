@@ -15,9 +15,9 @@ var EchoCommand = new SimplerDiscord.Command("echo", true, "Echo the string", Ec
 Commands.register(PingCommand, "Utility Commands");
 Commands.register(EchoCommand, "Fun Commands");
 
-Messages.add("poop", function (msg) { msg.channel.send("POOP!"); });
-Messages.add("did you know you can become a discord partner", function (msg) { msg.channel.send("DIE, PLEASE!"); }, true);
-Messages.add("AAAAAAAA", function (msg) { msg.channel.send("AAAAAAAAAAAAAAAAAAAAAAAAAAAA"); }, 2);
+Messages.register("poop", function (msg) { msg.channel.send("POOP!"); });
+Messages.register("did you know you can become a discord partner", function (msg) { msg.channel.send("DIE, PLEASE!"); }, true);
+Messages.register("AAAAAAAA", function (msg) { msg.channel.send("AAAAAAAAAAAAAAAAAAAAAAAAAAAA"); }, 2);
 
 function Ping(message, args, handler) {
     var responses = new SimplerDiscord.RandomMessage(["POOP", "POP", "NOP", "DAB", SimplerDiscord.getEmoji("god", message.guild)]);

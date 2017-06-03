@@ -17,9 +17,9 @@ class CommandHandler {
         this.options = options;
         this.vars = {};
         
-        this.regester(new Command("help", null, "Get All Commands", HelpCommand), "Help Commands");
-        this.regester(new Command("help", ["command"], "Get Command Info", HelpSearchCommand), "Help Commands");
-        this.regester(new Command("afk", true, "Go AFK", AFK, 10000), "Utility Commands");
+        this.register(new Command("help", null, "Get All Commands", HelpCommand), "Help Commands");
+        this.register(new Command("help", ["command"], "Get Command Info", HelpSearchCommand), "Help Commands");
+        this.register(new Command("afk", true, "Go AFK", AFK, 10000), "Utility Commands");
     }
 
     register(command, group) {
@@ -219,7 +219,6 @@ function AFK(message, args, handler) {
     afks[message.author.username] = args;
 
     message.channel.send(`${message.author}, I set your AFK: ${args}`)
-        .then(x => DeleteQueue.add(x, 5000));
 
     return true;
 }
