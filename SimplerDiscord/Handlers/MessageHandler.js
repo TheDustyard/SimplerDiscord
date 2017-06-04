@@ -22,9 +22,9 @@ class MessageHandler {
         if (message === null || message === undefined)
             return;
 
-        if (message.ratelimit.delay !== undefined) {
+        if (message.ratelimit !== undefined) {
             if (RateLimited(command.ratelimit, msg)) return;
-        } else if (this.ratelimit.delay !== undefined) {
+        } else if (this.ratelimit !== undefined) {
             if (RateLimited(this.ratelimit, msg)) return;
         }
 
