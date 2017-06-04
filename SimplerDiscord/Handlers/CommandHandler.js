@@ -7,7 +7,55 @@ const Discord = require("discord.js");
 
 var afks = [];
 
+    /**
+     * Can be a Hex Literal, Hex String, Number, RGB Array, or one of the following
+     * ```
+     * [
+     *   'DEFAULT',
+     *   'AQUA',
+     *   'GREEN',
+     *   'BLUE',
+     *   'PURPLE',
+     *   'GOLD',
+     *   'ORANGE',
+     *   'RED',
+     *   'GREY',
+     *   'DARKER_GREY',
+     *   'NAVY',
+     *   'DARK_AQUA',
+     *   'DARK_GREEN',
+     *   'DARK_BLUE',
+     *   'DARK_PURPLE',
+     *   'DARK_GOLD',
+     *   'DARK_ORANGE',
+     *   'DARK_RED',
+     *   'DARK_GREY',
+     *   'LIGHT_GREY',
+     *   'DARK_NAVY',
+     *   'RANDOM',
+     * ]
+     * ```
+     * or something like
+     * ```
+     * [255, 0, 255]
+     * ```
+     * for purple
+     * @typedef {string|number|Array} ColorResolvable
+     */
+
+    /**
+     * @typedef HandlerOptions
+     * @property {ColorResolvable} color Color of help embeds
+     * @property {boolean} notfound Send a message when a command is not found
+     */
+
 class CommandHandler {
+    /**
+     * Create a command handler
+     * @param {string} prefix
+     * @param {HandlerOptions} [options]
+     * @param {number} [ratelimit]
+     */
     constructor(prefix, options, ratelimit) {
         this.prefix = prefix;
         this.commands = [];

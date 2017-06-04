@@ -41,7 +41,6 @@
     <Compile Include="Types\Command.js" />
     <Compile Include="Handlers\CommandHandler.js" />
     <Compile Include="index.js" />
-    <Compile Include="Types\Mention.js" />
     <Compile Include="Handlers\MessageHandler.js" />
     <Compile Include="Util\DeleteQueue.js">
       <SubType>Code</SubType>

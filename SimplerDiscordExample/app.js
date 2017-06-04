@@ -1,7 +1,7 @@
 ﻿const Discord = require("discord.js");
 const settings = require('./setting.json');
-const SimplerDiscord = require("Simpler-Discord");
-//const SimplerDiscord = require("../SimplerDiscord/index");
+//const SimplerDiscord = require("Simpler-Discord");
+const SimplerDiscord = require("../SimplerDiscord/index");
 
 const client = new Discord.Client();
 
@@ -21,7 +21,7 @@ Messages.register("AAAAAAAA", function (msg) { msg.channel.send("AAAAAAAAAAAAAAA
 
 function Ping(message, args, handler) {
     var responses = new SimplerDiscord.RandomMessage(["POOP", "POP", "NOP", "DAB", SimplerDiscord.getEmoji("god", message.guild)]);
-    message.channel.send(responses.chooose())
+    message.channel.send(responses.choose())
         .then(x => DeleteQueue.add(x, 10000));
     return true;
 }
