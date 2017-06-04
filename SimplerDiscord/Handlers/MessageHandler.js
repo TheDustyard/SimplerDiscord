@@ -54,7 +54,7 @@ class MessageHandler {
 }
 
 function RateLimited(ratelimit, msg) {
-    if (ratelimit === undefined) return;
+    if (ratelimit.limited === undefined) return;
     if (ratelimit.limited(msg.author.username)) {
         console.log(`[SimpleDiscord] ${msg.author.username} is being rate limited`);
         msg.channel.send(`Slow Down!!`)
