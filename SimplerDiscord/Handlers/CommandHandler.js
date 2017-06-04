@@ -52,9 +52,9 @@ var afks = [];
 class CommandHandler {
     /**
      * Create a command handler
-     * @param {string} prefix
-     * @param {HandlerOptions} [options]
-     * @param {number} [ratelimit]
+     * @param {string} prefix prefix to use
+     * @param {HandlerOptions} [options] Options for the handler
+     * @param {number} [ratelimit] Default ratelimit
      */
     constructor(prefix, options, ratelimit) {
         this.prefix = prefix;
@@ -70,6 +70,11 @@ class CommandHandler {
         this.register(new Command("afk", true, "Go AFK", AFK, 10000), "Utility Commands");
     }
 
+    /**
+     * Regieter a command with the command handler
+     * @param {Command} command Command to regester
+     * @param {string} group Name of the group the command is in
+     */
     register(command, group) {
         if (group === undefined)
             group = "Other Commands";
@@ -80,6 +85,10 @@ class CommandHandler {
         this.commands[group].push(command);
     }
 
+    /**
+     * Handle the commands for the given message
+     * @param {Discord.Message} message Message to handle
+     */
     handle(message) {
         UnAFK(message, this);
 
@@ -148,11 +157,24 @@ class CommandHandler {
 
     }
 
+    /**
+     * Tell the console that two commands interfiere
+     * @private
+     * @param {Command[]} filtered Filtered commands
+     * @param {Discord.Message} message Message that called the commands
+     */
     twoCommandsInterfiere(filtered, message) {
         console.log(`[SimpleDiscord] !!TWO COMMANDS ARE INTERFERING WITH EACHOTHER!!\n${filtered.map((item) => item.name)}`);
         message.channel.send(`Internal Error`);
     }
 
+    /**
+     * Run a command
+     * @private
+     * @param {Discord.Message} msg Message that called the command
+     * @param {Command} command Command to run
+     * @param {string[]} args Command args
+     */
     runCommand(msg, command, args) {
         if (command.ratelimit.delay !== undefined) {
             if (RateLimited(command.ratelimit, msg)) return;
@@ -166,6 +188,10 @@ class CommandHandler {
         return;
     }
 
+    /**
+     * Find a command
+     * @param {string} name Command name
+     */
     findCommand(name) {
         var out = [];
 
