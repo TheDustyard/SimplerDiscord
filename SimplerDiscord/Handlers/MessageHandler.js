@@ -1,6 +1,10 @@
 ﻿const Discord = require("discord.js");
 const Command = require("../Types/Command");
 const StringUtils = require("../Util/StringUtils");
+const Queue = require("../Util/DeleteQueue");
+
+var DeleteQueue = new Queue();
+
 
 class MessageHandler {
     constructor(ratelimit) {
