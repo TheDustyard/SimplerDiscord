@@ -17,23 +17,32 @@
     //METHODS
     /**
      * Gets an emoji
-     * @returns {string}
-     * @param {string} name
-     * @param {Guild} guild
+     * @returns {string} emoji
+     * @param {string} name Name of the emoji
+     * @param {Guild} guild Guild for the emoji
      */
-    getEmoji: (name, guild) => `<:${name}:${guild.emojis.find('name', name).id}>`,
+    getEmoji: function (name, guild) {
+        let emoji = guild.emojis.find('name', name);
+        if (emoji === undefined)
+            return name;
+        return `<:${name}:${emoji.id}>`;
+    },
     /**
      * Gets a mention of a user
-     * @returns {string}
-     * @param {string} name
-     * @param {Guild} guild
+     * @returns {string} Mention
+     * @param {string} name Name
+     * @param {Guild} guild guild
      */
-    getUserMention: (name, guild) => users.filter((item) => item.user.username.toLowerCase() === this.name.toLowerCase()).join(),
+    getUserMention: function (name, guild) {
+        return guild.members.filter((item) => item.user.username.toLowerCase() === this.name.toLowerCase()).join();
+    },
     /**
      * Gets a mention of a channel
-     * @returns {string}
-     * @param {string} name
-     * @param {Guild} guild
+     * @returns {string} Mention
+     * @param {string} name Name
+     * @param {Guild} guild Guild
      */
-    getChannelMention: (namw, guild) => channels.filter((item) => item.type === "text").filter((item) => item.name === this.name).join()
+    getChannelMention: function (name, guild) {
+        return guild.channels.filter((item) => item.type === "text").filter((item) => item.name === this.name).join();
+    }
 };
