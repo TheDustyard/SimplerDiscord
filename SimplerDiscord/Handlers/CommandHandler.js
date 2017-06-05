@@ -191,6 +191,7 @@ class CommandHandler {
     /**
      * Find a command
      * @param {string} name Command name
+     * @returns {Command} Command
      */
     findCommand(name) {
         var out = [];
@@ -292,7 +293,7 @@ function AFK(message, args, handler) {
 
     afks[message.author.username] = args;
 
-    message.channel.send(`${message.author}, I set your AFK: ${args}`)
+    message.channel.send(`${message.author}, I set your AFK: ${args}`);
 
     return true;
 }
