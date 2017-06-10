@@ -23,7 +23,7 @@
      */
     getEmoji: function (name, guild) {
         let emoji = guild.emojis.find('name', name);
-        if (emoji === undefined)
+        if (emoji === undefined || emoji === null)
             return name;
         return `<:${name}:${emoji.id}>`;
     },
