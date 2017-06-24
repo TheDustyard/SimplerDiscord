@@ -42,9 +42,6 @@
     <Compile Include="Handlers\CommandHandler.js" />
     <Compile Include="index.js" />
     <Compile Include="Handlers\MessageHandler.js" />
-    <Compile Include="Util\DeleteQueue.js">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Util\RandomMessage.js" />
     <Compile Include="Util\RateLimiter.js">
       <SubType>Code</SubType>

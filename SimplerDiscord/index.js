@@ -10,7 +10,6 @@
     //UTIL
     RandomMessage: require("./Util/RandomMessage"),
     RateLimiter: require("./Util/RateLimiter"),
-    DeleteQueue: require("./Util/DeleteQueue"),
     StringUtils: require("./Util/StringUtils"),
     BetterLogger: require("./Util/BetterLogger"),
 

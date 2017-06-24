@@ -1,13 +1,13 @@
 {
   "name": "simpler-discord",
-  "version": "2.2.2",
+  "version": "2.3.456789",
   "description": "SimplerDiscord",
   "main": "index.js",
   "author": {
     "name": "DusterTheFirst"
   },
-  "homepage": "https://github.com/DusterTheFirst/SimplerDiscord",
-  "license": "http://www.apache.org/licenses/LICENSE-2.0",
+  "repository": "https://github.com/DusterTheFirst/SimplerDiscord",
+  "license": "Apache 2.0",
   "dependencies": {
     "colors": "^1.1.2",
     "discord.js": "^11.1.0"

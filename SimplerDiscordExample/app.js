@@ -5,7 +5,6 @@ const SimplerDiscord = require("../SimplerDiscord/index");
 
 const client = new Discord.Client();
 
-var DeleteQueue = new SimplerDiscord.DeleteQueue();
 var Commands = new SimplerDiscord.CommandHandler("d!", { color: undefined, notfound: true }, 5000);
 var Messages = new SimplerDiscord.MessageHandler();
 
@@ -22,7 +21,7 @@ Messages.register("AAAAAAAA", function (msg) { msg.channel.send("AAAAAAAAAAAAAAA
 function Ping(message, args, handler) {
     var responses = new SimplerDiscord.RandomMessage(["POOP", "POP", "NOP", "DAB", SimplerDiscord.getEmoji("god", message.guild)]);
     message.channel.send(responses.choose())
-        .then(x => DeleteQueue.add(x, 10000));
+        .then(x => setTimeout(() => x.delete(), 10000));
     return true;
 }
 

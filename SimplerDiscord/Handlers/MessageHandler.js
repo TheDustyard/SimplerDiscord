@@ -1,9 +1,6 @@
 ﻿const Discord = require("discord.js");
 const Command = require("../Types/Command");
 const StringUtils = require("../Util/StringUtils");
-const Queue = require("../Util/DeleteQueue");
-
-var DeleteQueue = new Queue();
 
 
 class MessageHandler {
@@ -62,7 +59,7 @@ function RateLimited(ratelimit, msg) {
     if (ratelimit.limited(msg.author.username)) {
         console.log(`[SimpleDiscord] ${msg.author.username} is being rate limited`);
         msg.channel.send(`Slow Down!!`)
-            .then(x => DeleteQueue.add(x, 2000));
+            .then(x => setTimeout(() => x.delete(), 2000));
         return true;
     }
     return false;

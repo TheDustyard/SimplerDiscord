@@ -8,6 +8,6 @@
   },
   "dependencies": {
     "discord.js": "^11.1.0",
-    "simpler-discord": "^2.0.1"
+    "simpler-discord": "^2.3.456789"
   }
 }

@@ -1,7 +1,5 @@
 ﻿const Command = require("../Types/Command");
 const RateLimiter = require("../Util/RateLimiter");
-const Queue = require("../Util/DeleteQueue");
-const DeleteQueue = new Queue();
 
 const Discord = require("discord.js");
 
@@ -153,7 +151,7 @@ class CommandHandler {
 
         if (this.options.notfound)
             message.channel.send(`Command ***${commandname}*** not found. Type ***${this.prefix}help*** for all commands`)
-                .then(x => DeleteQueue.add(x, 10000));
+                .then(x => setTimeout(() => x.delete(), 10000));
 
     }
 
@@ -213,7 +211,7 @@ function RateLimited(ratelimit, msg) {
     if (ratelimit.limited(msg.author.username)) {
         console.log(`[SimpleDiscord] ${msg.author.username} is being rate limited`);
         msg.channel.send(`Slow Down!!`)
-            .then(x => DeleteQueue.add(x, 2000));
+            .then(x => setTimeout(() => x.delete(), 2000));
         return true;
     }
     return false;
@@ -307,7 +305,7 @@ function UnAFK(message, handler) {
     delete afks[message.author.username];
 
     message.channel.send(`Welcome back ${message.author}`)
-        .then(x => DeleteQueue.add(x, 10000));
+        .then(x => setTimeout(() => x.delete(), 10000));
 }
 
 function checkMention(msg, afks) {
@@ -317,7 +315,7 @@ function checkMention(msg, afks) {
     for (person in afks) {
         if (mentions.some(x => x.user.username === person))
             msg.channel.send(`**${person}** is *AFK*: ${afks[person]}`)
-                .then(x => DeleteQueue.add(x, 10000));
+                .then(x => setTimeout(() => x.delete(), 10000));
     }
 }
 
