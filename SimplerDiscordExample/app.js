@@ -3,6 +3,8 @@ const settings = require('./setting.json');
 //const SimplerDiscord = require("Simpler-Discord");
 const SimplerDiscord = require("../SimplerDiscord/index");
 
+new SimplerDiscord.DeleteQueue().add();
+
 const client = new Discord.Client();
 
 var Commands = new SimplerDiscord.CommandHandler("d!", { color: undefined, notfound: true }, 5000);

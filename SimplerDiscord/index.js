@@ -10,6 +10,15 @@
     //UTIL
     RandomMessage: require("./Util/RandomMessage"),
     RateLimiter: require("./Util/RateLimiter"),
+    DeleteQueue: class {
+        constructor() {
+            console.error("WARNING: " + "Depreciated");
+        }
+
+        add(message, delay) {
+            throw "NO LONGER SUPPORTED, USE `setTimeout(() => x.delete()` INSTEAD";
+        }
+    },
     StringUtils: require("./Util/StringUtils"),
     BetterLogger: require("./Util/BetterLogger"),
 
